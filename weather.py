@@ -128,7 +128,6 @@ def generate_summary(weather_data):
         A string containing the summary information.
     """
 
-    num_of_days = len(weather_data)
     formatted_data = []
 
     for item in weather_data:
@@ -161,16 +160,11 @@ def generate_summary(weather_data):
     mean_max_temp = round(sum(max_temp_list) / len(max_temp_list), 1)       
     mean_min_temp = round(sum(min_temp_list) / len(min_temp_list), 1)
 
-    summary_min = format_temperature(lowest_temp)
-    summary_max = format_temperature(highest_temp)
-    mean_min = format_temperature(mean_min_temp)
-    mean_max = format_temperature(mean_max_temp)       
-
-    summary_string = (f"{num_of_days} Day Overview\n"
-    f"  The lowest temperature will be {summary_min}, and will occur on {day_of_lowest_temp}.\n"
-    f"  The highest temperature will be {summary_max}, and will occur on {day_of_highest_temp}.\n"
-    f"  The average low this week is {mean_min}.\n"
-    f"  The average high this week is {mean_max}.\n")
+    summary_string = (f"{len(weather_data)} Day Overview\n"
+    f"  The lowest temperature will be {format_temperature(lowest_temp)}, and will occur on {day_of_lowest_temp}.\n"
+    f"  The highest temperature will be {format_temperature(highest_temp)}, and will occur on {day_of_highest_temp}.\n"
+    f"  The average low this week is {format_temperature(mean_min_temp)}.\n"
+    f"  The average high this week is {format_temperature(mean_max_temp)}.\n")
     
     return summary_string
 
@@ -190,13 +184,11 @@ def generate_daily_summary(weather_data):
             day = convert_date(entry[0])
             min = convert_f_to_c(entry[1])
             max = convert_f_to_c(entry[2])
-            formatted_min = format_temperature(min)
-            formatted_max = format_temperature(max)
 
             daily_summary = (
                 f"---- {day} ----\n"
-                f"  Minimum Temperature: {formatted_min}\n"
-                f"  Maximum Temperature: {formatted_max}\n\n"
+                f"  Minimum Temperature: {format_temperature(min)}\n"
+                f"  Maximum Temperature: {format_temperature(max)}\n\n"
             )
 
             summary.append(daily_summary)
